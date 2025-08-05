@@ -1,0 +1,115 @@
+{
+  "test_grid_map_api": {
+    "description": "API endpoints for power grid map visualization",
+    "endpoints": {
+      "GET /api/grid-map": {
+        "description": "Get all power grid data (facilities + lines)",
+        "response_example": {
+          "facilities": [
+            {
+              "id": "1",
+              "name": "Nhiệt điện Phả Lại",
+              "type": "power_plant",
+              "latitude": 20.8561,
+              "longitude": 106.6197,
+              "voltage": 500,
+              "capacity": 1200,
+              "status": "online",
+              "operator": "EVN",
+              "commissioned": "2018",
+              "description": "Nhà máy nhiệt điện than công suất lớn phục vụ khu vực miền Bắc"
+            }
+          ],
+          "powerLines": [
+            {
+              "id": "line1",
+              "name": "Đường dây 500kV Sơn La - Thăng Long",
+              "from": "2",
+              "to": "3",
+              "positions": [
+                [21.3272, 103.9143],
+                [21.3089, 105.6047],
+                [21.0037, 105.8270]
+              ],
+              "voltage": 500,
+              "capacity": 2000,
+              "status": "active",
+              "type": "transmission"
+            }
+          ],
+          "totalFacilities": 13,
+          "totalLines": 5,
+          "dataSource": "FAKE_DATA",
+          "message": "Power grid map data loaded successfully"
+        }
+      },
+      "GET /api/grid-map/facilities": {
+        "description": "Get only power facilities",
+        "response_example": {
+          "facilities": [...],
+          "total": 13,
+          "dataSource": "FAKE_DATA"
+        }
+      },
+      "GET /api/grid-map/lines": {
+        "description": "Get only power lines",
+        "response_example": {
+          "powerLines": [...],
+          "total": 5,
+          "dataSource": "FAKE_DATA"
+        }
+      },
+      "GET /api/grid-map/statistics": {
+        "description": "Get grid map statistics",
+        "response_example": {
+          "totalFacilities": 13,
+          "onlineFacilities": 12,
+          "maintenanceFacilities": 1,
+          "offlineFacilities": 0,
+          "totalLines": 5,
+          "activeLines": 5,
+          "totalCapacity": 11349,
+          "dataSource": "FAKE_DATA"
+        }
+      }
+    },
+    "frontend_integration": {
+      "url": "http://localhost:3000/api/grid-map",
+      "method": "GET",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "cors": "Enabled for localhost:3000, localhost:3001, localhost:8000",
+      "authentication": "Not required (public endpoint)"
+    },
+    "data_summary": {
+      "facilities_count": 13,
+      "facility_types": [
+        "power_plant",
+        "substation", 
+        "transmission_tower",
+        "distribution_center",
+        "transformer",
+        "renewable"
+      ],
+      "facility_statuses": [
+        "online",
+        "offline", 
+        "maintenance",
+        "warning"
+      ],
+      "lines_count": 5,
+      "line_types": [
+        "transmission",
+        "distribution"
+      ],
+      "line_statuses": [
+        "active",
+        "inactive",
+        "maintenance"
+      ],
+      "total_capacity": "11,349 MW",
+      "coverage": "Vietnam power grid (Hanoi, Ho Chi Minh City, and surrounding areas)"
+    }
+  }
+} 

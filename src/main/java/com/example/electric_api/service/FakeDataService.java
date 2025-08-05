@@ -604,4 +604,142 @@ public class FakeDataService {
         
         return summary;
     }
+
+    // ==================== FAKE POWER FACILITIES FOR MAP ====================
+    public List<com.example.electric_api.dto.PowerFacility> getFakePowerFacilities() {
+        List<com.example.electric_api.dto.PowerFacility> facilities = new ArrayList<>();
+        
+        Object[][] facilityData = {
+            // id, name, type, lat, lng, voltage, capacity, status, operator, commissioned, description
+            {"1", "Nhiệt điện Phả Lại", "power_plant", "20.8561", "106.6197", 500, 1200, "online", "EVN", "2018", "Nhà máy nhiệt điện than công suất lớn phục vụ khu vực miền Bắc"},
+            {"2", "Thủy điện Sơn La", "power_plant", "21.3272", "103.9143", 500, 2400, "online", "EVN", "2012", "Nhà máy thủy điện lớn nhất Việt Nam"},
+            {"3", "Trạm biến áp 500kV Thăng Long", "substation", "21.0037", "105.8270", 500, 1500, "online", "EVN", "2015", "Trạm biến áp trung tâm khu vực Hà Nội"},
+            {"4", "Trạm biến áp 220kV Gia Lâm", "substation", "21.0405", "105.8719", 220, 400, "online", "EVNHANOI", "2010", "Trạm biến áp phụ tải khu vực Gia Lâm - Long Biên"},
+            {"5", "Cột điện 500kV Vĩnh Yên", "transmission_tower", "21.3089", "105.6047", 500, 1000, "online", "NPT", "2016", "Cột truyền tải 500kV tuyến Sơn La - Thăng Long"},
+            {"6", "Nhà máy điện mặt trời Đak Lak", "renewable", "12.7100", "108.2378", 22, 50, "online", "Tư nhân", "2020", "Nhà máy điện mặt trời công suất 50MW"},
+            {"7", "Trung tâm phân phối Cầu Giấy", "distribution_center", "21.0324", "105.7969", 22, 200, "online", "EVNHANOI", "2008", "Trung tâm phân phối điện khu vực Cầu Giấy"},
+            {"8", "Máy biến áp 110kV Đống Đa", "transformer", "21.0167", "105.8274", 110, 150, "maintenance", "EVNHANOI", "2005", "Máy biến áp trung tâm quận Đống Đa"},
+            {"9", "Nhiệt điện Nghi Sơn", "power_plant", "19.8667", "105.8833", 500, 1200, "online", "EVN", "2022", "Nhà máy nhiệt điện hiện đại tại Thanh Hóa"},
+            {"10", "Điện gió Bạc Liêu", "renewable", "9.2947", "105.4703", 110, 99, "online", "Tư nhân", "2021", "Trang trại điện gió lớn nhất miền Tây"},
+            {"11", "Thủy điện Hòa Bình", "power_plant", "20.8133", "105.3383", 500, 1920, "online", "EVN", "1994", "Nhà máy thủy điện lớn thứ hai Việt Nam"},
+            {"12", "Trạm biến áp 500kV Nho Quan", "substation", "20.3167", "105.7500", 500, 1200, "online", "EVN", "2017", "Trạm biến áp 500kV khu vực Ninh Bình"},
+            {"13", "Nhà máy điện sinh khối Bình Phước", "renewable", "11.7500", "106.7500", 22, 30, "online", "Tư nhân", "2019", "Nhà máy điện sinh khối từ bã mía"}
+        };
+
+        for (Object[] data : facilityData) {
+            com.example.electric_api.dto.PowerFacility facility = new com.example.electric_api.dto.PowerFacility();
+            facility.setId((String) data[0]);
+            facility.setName((String) data[1]);
+            facility.setType((String) data[2]);
+            facility.setLatitude(new BigDecimal((String) data[3]));
+            facility.setLongitude(new BigDecimal((String) data[4]));
+            facility.setVoltage((Integer) data[5]);
+            facility.setCapacity((Integer) data[6]);
+            facility.setStatus((String) data[7]);
+            facility.setOperator((String) data[8]);
+            facility.setCommissioned((String) data[9]);
+            facility.setDescription((String) data[10]);
+            facilities.add(facility);
+        }
+        
+        return facilities;
+    }
+
+    // ==================== FAKE POWER LINES FOR MAP ====================
+    public List<com.example.electric_api.dto.PowerLine> getFakePowerLines() {
+        List<com.example.electric_api.dto.PowerLine> lines = new ArrayList<>();
+        
+        // Line 1: Sơn La - Thăng Long
+        List<BigDecimal[]> positions1 = Arrays.asList(
+            new BigDecimal[]{new BigDecimal("21.3272"), new BigDecimal("103.9143")}, // Sơn La
+            new BigDecimal[]{new BigDecimal("21.3089"), new BigDecimal("105.6047")}, // Vĩnh Yên
+            new BigDecimal[]{new BigDecimal("21.0037"), new BigDecimal("105.8270")}  // Thăng Long
+        );
+        
+        com.example.electric_api.dto.PowerLine line1 = new com.example.electric_api.dto.PowerLine();
+        line1.setId("line1");
+        line1.setName("Đường dây 500kV Sơn La - Thăng Long");
+        line1.setFrom("2");
+        line1.setTo("3");
+        line1.setPositions(positions1);
+        line1.setVoltage(500);
+        line1.setCapacity(2000);
+        line1.setStatus("active");
+        line1.setType("transmission");
+        lines.add(line1);
+        
+        // Line 2: Phả Lại - Thăng Long
+        List<BigDecimal[]> positions2 = Arrays.asList(
+            new BigDecimal[]{new BigDecimal("20.8561"), new BigDecimal("106.6197")}, // Phả Lại
+            new BigDecimal[]{new BigDecimal("21.0037"), new BigDecimal("105.8270")}  // Thăng Long
+        );
+        
+        com.example.electric_api.dto.PowerLine line2 = new com.example.electric_api.dto.PowerLine();
+        line2.setId("line2");
+        line2.setName("Đường dây 500kV Phả Lại - Thăng Long");
+        line2.setFrom("1");
+        line2.setTo("3");
+        line2.setPositions(positions2);
+        line2.setVoltage(500);
+        line2.setCapacity(1200);
+        line2.setStatus("active");
+        line2.setType("transmission");
+        lines.add(line2);
+        
+        // Line 3: Thăng Long - Gia Lâm
+        List<BigDecimal[]> positions3 = Arrays.asList(
+            new BigDecimal[]{new BigDecimal("21.0037"), new BigDecimal("105.8270")}, // Thăng Long
+            new BigDecimal[]{new BigDecimal("21.0405"), new BigDecimal("105.8719")}  // Gia Lâm
+        );
+        
+        com.example.electric_api.dto.PowerLine line3 = new com.example.electric_api.dto.PowerLine();
+        line3.setId("line3");
+        line3.setName("Đường dây 220kV Thăng Long - Gia Lâm");
+        line3.setFrom("3");
+        line3.setTo("4");
+        line3.setPositions(positions3);
+        line3.setVoltage(220);
+        line3.setCapacity(400);
+        line3.setStatus("active");
+        line3.setType("transmission");
+        lines.add(line3);
+        
+        // Line 4: Gia Lâm - Cầu Giấy
+        List<BigDecimal[]> positions4 = Arrays.asList(
+            new BigDecimal[]{new BigDecimal("21.0405"), new BigDecimal("105.8719")}, // Gia Lâm
+            new BigDecimal[]{new BigDecimal("21.0324"), new BigDecimal("105.7969")}  // Cầu Giấy
+        );
+        
+        com.example.electric_api.dto.PowerLine line4 = new com.example.electric_api.dto.PowerLine();
+        line4.setId("line4");
+        line4.setName("Đường dây phân phối Gia Lâm - Cầu Giấy");
+        line4.setFrom("4");
+        line4.setTo("7");
+        line4.setPositions(positions4);
+        line4.setVoltage(22);
+        line4.setCapacity(200);
+        line4.setStatus("active");
+        line4.setType("distribution");
+        lines.add(line4);
+        
+        // Line 5: Hòa Bình - Nho Quan
+        List<BigDecimal[]> positions5 = Arrays.asList(
+            new BigDecimal[]{new BigDecimal("20.8133"), new BigDecimal("105.3383")}, // Hòa Bình
+            new BigDecimal[]{new BigDecimal("20.3167"), new BigDecimal("105.7500")}  // Nho Quan
+        );
+        
+        com.example.electric_api.dto.PowerLine line5 = new com.example.electric_api.dto.PowerLine();
+        line5.setId("line5");
+        line5.setName("Đường dây 500kV Hòa Bình - Nho Quan");
+        line5.setFrom("11");
+        line5.setTo("12");
+        line5.setPositions(positions5);
+        line5.setVoltage(500);
+        line5.setCapacity(1500);
+        line5.setStatus("active");
+        line5.setType("transmission");
+        lines.add(line5);
+        
+        return lines;
+    }
 } 
